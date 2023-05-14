@@ -1,0 +1,10 @@
+23/05/14 11:52:23 INFO http-nio-8080-exec-1 ShopAdminLog: - 201 OK Server. Read all products.
+23/05/14 11:52:44 INFO http-nio-8080-exec-4 ShopAdminLog: - 201 OK Server. Post one product. LETI.cw.models.Product@4beb77d1
+23/05/14 11:52:44 INFO http-nio-8080-exec-5 ShopAdminLog: - 201 OK Server. Read all products.
+23/05/14 11:52:58 INFO http-nio-8080-exec-8 ShopAdminLog: - 201 OK Server. Update one product. LETI.cw.models.Product@3dd8c8b4
+23/05/14 11:52:58 INFO http-nio-8080-exec-9 ShopAdminLog: - 201 OK Server. Read all products.
+23/05/14 11:53:11 INFO http-nio-8080-exec-2 ShopAdminLog: - 201 OK Server. Delete one product. LETI.cw.models.Product@6612684c
+23/05/14 11:53:11 INFO http-nio-8080-exec-3 ShopAdminLog: - 201 OK Server. Read all products.
+23/05/14 11:53:38 INFO http-nio-8080-exec-9 ShopAdminLog: - 201 OK Server. Read all products.
+23/05/14 11:53:43 WARN http-nio-8080-exec-1 ShopAdminLog: - 404 Server Error. Not found ID: 1
+23/05/14 11:53:45 WARN http-nio-8080-exec-2 ShopAdminLog: - 404 Server Error. Not found ID: 1

@@ -62,10 +62,21 @@
 
                 <b-button variant="primary" @click="save">Сохранить</b-button>
             </b-form>
+            <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
+            <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
+            <p></p>
+            <b-form-file
+                accept=".json"
+                v-model="file"
+                :state="Boolean(file)"
+            ></b-form-file>
+            <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
     </div>
 </template>
 <script>
     import {url} from "@/main";
+    import jsPDF from 'jspdf'
+    import font from '@/kztimesnewroman-normal';
     export default {
           name: 'SellersView',
           data() {
@@ -195,7 +206,42 @@
               deleteRow(id) {
                   this.$http.delete(url + "/seller/" + id.toString()).
                         then(()=>this.getData())
+              },
+              getJSON() {
+                  var fileDownload = require('js-file-download');
+                  fileDownload(JSON.stringify(this.sellers), 'sellers.json');
+              },
+            addJSON() {
+              let reader = new FileReader()
+              reader.readAsText(this.file)
+              reader.onload = () => {
+                let data = JSON.parse(reader.result) // [{},{}]
+                this.$http.post(url + "/sellers/list", data).catch(() => {
+                  this.alertText = "Ошибка!"
+                }).then(() => this.getData())
               }
+            },
+            generatePDF() {
+                  const pdf = new jsPDF()
+                  console.log(pdf.getFontList())
+                  const myFont = font;
+
+            // add the font to jsPDF
+                  pdf.addFileToVFS("MyFont.ttf", myFont);
+                  pdf.addFont("MyFont.ttf", "MyFont", "normal");
+                  pdf.setFont("MyFont");
+                  let text = "Продавцы\n\n";
+                  for (let i = 0; i < this.sellers.length; i++) {
+                    text +="ID: " +
+                    this.sellers[i].id +
+                        "\nФИО: " + this.sellers[i].lastname + " " + this.sellers[i].name + " " + this.sellers[i].fathername +
+                        "\nДата рождения: " + this.sellers[i].birth +
+                        "\nНомер телефона: " + this.sellers[i].phone +
+                        "\nАдрес эл.почты: " + this.sellers[i].email + "\n\n"
+                  }
+                  pdf.text(text, 10, 10)
+                  pdf.save("sellers.pdf")
+                }
           }
     }
 </script>

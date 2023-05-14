@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,13 @@ public class SellerController {
 
     @GetMapping
     public List<Seller> list() {
-        return sellerRepo.findAll();
+        List<Seller> sellers = sellerRepo.findAll();
+        for (Seller seller : sellers) {
+            if (seller.getId() == 1) {
+                sellers.remove(seller);
+            }
+        }
+        return sellers;
     }
     @GetMapping("{id}")
     public Seller getOne(@PathVariable("id") Seller seller) {
